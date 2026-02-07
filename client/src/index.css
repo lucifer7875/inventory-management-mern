@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+@theme {
+  /* Premium Light Theme - Elite Ivory, Serene Blue, and Sophisticated Gold */
+  --color-background: hsl(210 40% 98%);
+  --color-foreground: hsl(222.2 47.4% 11.2%);
+  
+  --color-card: hsl(0 0% 100%);
+  --color-card-foreground: hsl(222.2 47.4% 11.2%);
+  
+  --color-popover: hsl(0 0% 100%);
+  --color-popover-foreground: hsl(222.2 47.4% 11.2%);
+  
+  --color-primary: hsl(221.2 83.2% 53.3%); /* Serene Sky Blue */
+  --color-primary-foreground: hsl(210 40.2% 98%);
+  
+  --color-secondary: hsl(210 40% 96.1%);
+  --color-secondary-foreground: hsl(222.2 47.4% 11.2%);
+  
+  --color-muted: hsl(210 40% 96.1%);
+  --color-muted-foreground: hsl(215.4 16.3% 46.9%);
+  
+  --color-accent: hsl(35.1 91.7% 52.9%); /* Sophisticated Gold */
+  --color-accent-foreground: hsl(222.2 47.4% 11.2%);
+  
+  --color-destructive: hsl(0 84.2% 60.2%);
+  --color-destructive-foreground: hsl(210 40.2% 98%);
+  
+  --color-border: hsl(214.3 31.8% 91.4%);
+  --color-input: hsl(214.3 31.8% 91.4%);
+  --color-ring: hsl(221.2 83.2% 53.3%);
+  
+  --radius-lg: 1rem;
+  --radius-md: 0.75rem;
+  --radius-sm: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    background-image: 
+      radial-gradient(at 0% 0%, hsla(221, 83%, 93%, 1) 0, transparent 50%), 
+      radial-gradient(at 50% 0%, hsla(35, 91%, 95%, 1) 0, transparent 50%),
+      radial-gradient(at 100% 0%, hsla(263, 70%, 95%, 1) 0, transparent 50%);
+    background-attachment: fixed;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white/70 backdrop-blur-xl border border-white/40 shadow-[0_8px_32px_0_rgba(31,38,135,0.07)];
+  }
+  
+  .noble-button-primary {
+    @apply bg-primary text-primary-foreground px-5 py-2.5 rounded-xl font-bold hover:bg-primary/90 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 transition-all shadow-md;
+  }
+
+  .noble-button-accent {
+    @apply bg-accent text-accent-foreground px-5 py-2.5 rounded-xl font-bold hover:bg-accent/90 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 transition-all shadow-md;
+  }
+
+  .premium-input {
+    @apply bg-white/50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary focus:outline-none transition-all placeholder:text-slate-400;
+  }
+}
