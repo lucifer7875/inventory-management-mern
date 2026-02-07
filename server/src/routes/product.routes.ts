@@ -10,7 +10,7 @@ const router = Router();
  * /api/products:
  *   get:
  *     summary: Get all products
- *     description: Retrieve a paginated list of products with optional search and category filters
+ *     description: Retrieve a paginated list of products with optional search, category filters, and sorting
  *     tags: [Products]
  *     parameters:
  *       - in: query
@@ -36,6 +36,20 @@ const router = Router();
  *           type: string
  *         description: Comma-separated list of category IDs to filter products
  *         example: "507f1f77bcf86cd799439012,507f1f77bcf86cd799439013"
+ *       - in: query
+ *         name: sortBy
+ *         schema:
+ *           type: string
+ *           enum: [name, quantity, createdAt]
+ *           default: createdAt
+ *         description: Field to sort by
+ *       - in: query
+ *         name: sortOrder
+ *         schema:
+ *           type: string
+ *           enum: [asc, desc]
+ *           default: desc
+ *         description: Sort order (ascending or descending)
  *     responses:
  *       200:
  *         description: Successful response with paginated products

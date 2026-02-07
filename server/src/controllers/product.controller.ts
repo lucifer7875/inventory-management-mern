@@ -10,12 +10,16 @@ class ProductController {
             const categories = req.query.categories
                 ? (req.query.categories as string).split(',')
                 : [];
+            const sortBy = (req.query.sortBy as string) || 'createdAt';
+            const sortOrder = (req.query.sortOrder as string) || 'desc';
 
             const result = await productService.getAllProducts(
                 page,
                 limit,
                 search,
-                categories
+                categories,
+                sortBy,
+                sortOrder
             );
             res.json(result);
         } catch (error) {

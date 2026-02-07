@@ -17,6 +17,8 @@ export const productService = baseApi.injectEndpoints({
                 if (filters.categories?.length) {
                     params.append('categories', filters.categories.join(','));
                 }
+                if (filters.sortBy) params.append('sortBy', filters.sortBy);
+                if (filters.sortOrder) params.append('sortOrder', filters.sortOrder);
                 return `products?${params.toString()}`;
             },
             providesTags: (result) =>

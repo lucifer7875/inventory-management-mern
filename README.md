@@ -30,42 +30,46 @@ A full-stack **Product Inventory Management System** built with the MERN stack (
 
 ```
 inventory-management-mern/
-├── server/
+├── client/                         # React frontend
 │   ├── src/
-│   │   ├── config/
-│   │   │   ├── env.ts              # Environment configuration
-│   │   │   ├── mongodb.ts          # Database connection
-│   │   │   └── swagger.config.ts   # Swagger/OpenAPI spec
-│   │   ├── controllers/
-│   │   │   └── product.controller.ts
-│   │   ├── middlewares/
-│   │   │   ├── error.middleware.ts
-│   │   │   └── validate.middleware.ts
-│   │   ├── models/
-│   │   │   ├── Product.ts
-│   │   │   └── Category.ts
-│   │   ├── routes/
-│   │   │   └── product.routes.ts
-│   │   ├── seeders/
-│   │   │   ├── category.seeder.ts
-│   │   │   ├── product.seeder.ts
-│   │   │   └── index.ts
-│   │   ├── services/
-│   │   │   └── product.service.ts
-│   │   ├── utils/
-│   │   │   └── AppError.ts
-│   │   ├── validations/
-│   │   │   └── product.validation.ts
-│   │   └── index.ts                # App class entry point
+│   │   ├── app/                    # Redux store
+│   │   ├── features/               # Feature modules
+│   │   ├── pages/                  # Page components
+│   │   ├── services/               # API services
+│   │   └── App.tsx
 │   ├── .env
-│   ├── package.json
-│   └── tsconfig.json
+│   └── package.json
+├── server/                         # Express backend
+│   ├── src/
+│   │   ├── config/                 # Configuration files
+│   │   ├── controllers/            # Request handlers
+│   │   ├── middlewares/            # Custom middleware
+│   │   ├── models/                 # Mongoose models
+│   │   ├── routes/                 # API routes
+│   │   ├── seeders/                # Database seeders
+│   │   ├── services/               # Business logic
+│   │   ├── utils/                  # Utility functions
+│   │   ├── validations/            # Input validation
+│   │   └── index.ts                # App entry point
+│   ├── .env
+│   └── package.json
 └── README.md
 ```
 
 ## 🛠️ Tech Stack
 
-### Backend
+### Frontend (Client)
+
+- **React 19** - UI library with latest features
+- **TypeScript** - Type safety
+- **Vite** - Fast build tool and dev server
+- **Redux Toolkit** - State management
+- **TanStack Table** - Powerful table component
+- **Tailwind CSS 4** - Utility-first CSS framework
+- **Axios** - HTTP client
+- **Lucide React** - Icon library
+
+### Backend (Server)
 
 - **Node.js** - Runtime environment
 - **Express.js 5.x** - Web framework
@@ -77,15 +81,11 @@ inventory-management-mern/
 - **dotenv** - Environment variables
 - **CORS** - Cross-origin resource sharing
 
-## 📦 Installation
+---
 
-### Prerequisites
+## 📦 Installation & Setup
 
-- Node.js (v14 or higher)
-- MongoDB (local or Atlas)
-- npm or yarn
-
-### Setup
+### Quick Start
 
 1. **Clone the repository**
 
@@ -94,14 +94,12 @@ inventory-management-mern/
    cd inventory-management-mern
    ```
 
-2. **Install server dependencies**
+2. **Setup Server**
 
    ```bash
    cd server
    npm install
    ```
-
-3. **Configure environment variables**
 
    Create a `.env` file in the `server` directory:
 
@@ -110,47 +108,191 @@ inventory-management-mern/
    MONGODB_URI=mongodb://localhost:27017/inventory_db
    ```
 
+3. **Setup Client**
+
+   ```bash
+   cd ../client
+   npm install
+   ```
+
+   Create a `.env` file in the `client` directory:
+
+   ```env
+   VITE_API_BASE_URL=http://localhost:5000/api
+   ```
+
 4. **Seed the database** (Optional)
 
    ```bash
+   cd ../server
    npm run seed
    ```
 
    This will populate the database with 100 sample products across 8 categories.
 
-5. **Start the development server**
+5. **Start the application**
+
+   Open two terminal windows:
+
+   **Terminal 1 - Start Server:**
+
+   ```bash
+   cd server
+   npm run dev
+   ```
+
+   **Terminal 2 - Start Client:**
+
+   ```bash
+   cd client
+   npm run dev
+   ```
+
+   - **Server:** http://localhost:5000
+   - **Client:** http://localhost:5173
+   - **API Docs:** http://localhost:5000/api-docs
+
+---
+
+## 🖥️ Client Documentation
+
+### Project Structure
+
+```
+client/
+├── src/
+│   ├── app/                    # Redux store configuration
+│   ├── features/               # Feature-based modules
+│   │   └── products/
+│   │       ├── components/     # Product-specific components
+│   │       ├── hooks/          # Custom React hooks
+│   │       └── types/          # TypeScript interfaces
+│   ├── pages/                  # Page components
+│   ├── services/               # API service layer
+│   ├── App.tsx                 # Root component
+│   ├── main.tsx                # Application entry point
+│   └── index.css               # Global styles
+├── .env                        # Environment variables
+├── vite.config.ts              # Vite configuration
+├── tailwind.config.js          # Tailwind CSS configuration
+└── package.json
+```
+
+### Available Scripts
+
+| Script            | Description                          |
+| ----------------- | ------------------------------------ |
+| `npm run dev`     | Start development server (port 5173) |
+| `npm run build`   | Build for production                 |
+| `npm run lint`    | Check code for linting errors        |
+| `npm run preview` | Preview production build locally     |
+
+### Environment Variables
+
+| Variable            | Description          | Default                   |
+| ------------------- | -------------------- | ------------------------- |
+| `VITE_API_BASE_URL` | Backend API base URL | http://localhost:5000/api |
+
+### Key Features
+
+- ✅ **React 19** with latest features and optimizations
+- ✅ **Redux Toolkit** for centralized state management
+- ✅ **TanStack Table** for advanced data tables with sorting, filtering, and pagination
+- ✅ **Tailwind CSS 4** for modern, responsive UI design
+- ✅ **TypeScript** for type-safe development
+- ✅ **Vite** for lightning-fast HMR and builds
+- ✅ **Feature-based architecture** for scalable code organization
+
+### Development Workflow
+
+1. **Start the dev server:**
+
    ```bash
    npm run dev
    ```
 
-## 🎯 Usage
+2. **Access the application:**
+   - Open http://localhost:5173 in your browser
+   - The app will hot-reload on file changes
 
-### Development
+3. **Build for production:**
+   ```bash
+   npm run build
+   ```
+   Production files will be in the `dist/` directory
 
-```bash
-npm run dev
+---
+
+## 🔧 Server Documentation
+
+### Project Structure
+
+```
+server/
+├── src/
+│   ├── config/
+│   │   ├── env.ts              # Environment configuration
+│   │   ├── mongodb.ts          # Database connection
+│   │   └── swagger.config.ts   # Swagger/OpenAPI spec
+│   ├── controllers/
+│   │   └── product.controller.ts
+│   ├── middlewares/
+│   │   ├── error.middleware.ts
+│   │   └── validate.middleware.ts
+│   ├── models/
+│   │   ├── Product.ts
+│   │   └── Category.ts
+│   ├── routes/
+│   │   └── product.routes.ts
+│   ├── seeders/
+│   │   ├── category.seeder.ts
+│   │   ├── product.seeder.ts
+│   │   └── index.ts
+│   ├── services/
+│   │   └── product.service.ts
+│   ├── utils/
+│   │   └── AppError.ts
+│   ├── validations/
+│   │   └── product.validation.ts
+│   └── index.ts                # App class entry point
+├── .env
+├── package.json
+└── tsconfig.json
 ```
 
-Server runs on http://localhost:5000
+### Available Scripts
 
-### Production
+| Script             | Description                              |
+| ------------------ | ---------------------------------------- |
+| `npm run dev`      | Start development server with hot reload |
+| `npm run seed`     | Seed database with sample data           |
+| `npm run lint`     | Check code for linting errors            |
+| `npm run lint:fix` | Auto-fix linting errors                  |
+| `npm start`        | Start production server                  |
 
-```bash
-npm start
-```
+### Environment Variables
 
-### Database Seeding
+| Variable      | Description               | Default                                |
+| ------------- | ------------------------- | -------------------------------------- |
+| `PORT`        | Server port               | 5000                                   |
+| `MONGODB_URI` | MongoDB connection string | mongodb://localhost:27017/inventory_db |
 
-```bash
-npm run seed
-```
+### Development Workflow
 
-### Linting
+1. **Start the dev server:**
 
-```bash
-npm run lint        # Check for issues
-npm run lint:fix    # Auto-fix issues
-```
+   ```bash
+   npm run dev
+   ```
+
+2. **Access the API:**
+   - API Base: http://localhost:5000/api
+   - Swagger Docs: http://localhost:5000/api-docs
+
+3. **Seed the database:**
+   ```bash
+   npm run seed
+   ```
 
 ## 📚 API Documentation
 
@@ -191,16 +333,6 @@ Features:
   updatedAt: Date;
 }
 ```
-
-## 🔧 Available Scripts
-
-| Script             | Description                              |
-| ------------------ | ---------------------------------------- |
-| `npm run dev`      | Start development server with hot reload |
-| `npm run seed`     | Seed database with sample data           |
-| `npm run lint`     | Check code for linting errors            |
-| `npm run lint:fix` | Auto-fix linting errors                  |
-| `npm start`        | Start production server                  |
 
 ## 🌟 Key Features Explained
 

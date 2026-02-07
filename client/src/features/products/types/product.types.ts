@@ -35,4 +35,6 @@ export interface ProductFilters {
     limit: number;
     search: string;
     categories: string[];
+    sortBy?: string;
+    sortOrder?: 'asc' | 'desc';
 }

@@ -14,7 +14,7 @@ import { DeleteConfirmationModal } from '../features/products/components/DeleteC
 const ProductsPage = () => {
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [deletingProduct, setDeletingProduct] = useState<{ id: string, name: string } | null>(null);
-    const { filters, setSearch, setPage, setCategories } = useProductFilters();
+    const { filters, setSearch, setPage, setCategories, setSorting } = useProductFilters();
 
     const { data: productsData, isLoading: productsLoading, error: productsError } = useGetProductsQuery(filters);
     const { data: categories = [] } = useGetCategoriesQuery();
@@ -77,6 +77,9 @@ const ProductsPage = () => {
                         products={productsData?.data || []}
                         onDelete={(product) => setDeletingProduct({ id: product.id, name: product.name })}
                         isDeleting={isDeleting}
+                        onSortChange={setSorting}
+                        currentSortBy={filters.sortBy}
+                        currentSortOrder={filters.sortOrder}
                     />
 
                     {/* Pagination */}

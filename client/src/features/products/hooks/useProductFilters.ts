@@ -6,6 +6,8 @@ export const useProductFilters = () => {
         limit: 10,
         search: '',
         categories: [] as string[],
+        sortBy: undefined as string | undefined,
+        sortOrder: undefined as 'asc' | 'desc' | undefined,
     });
 
     const setSearch = (search: string) => {
@@ -20,12 +22,18 @@ export const useProductFilters = () => {
         setFilters((prev) => ({ ...prev, categories, page: 1 }));
     };
 
+    const setSorting = (sortBy: string | undefined, sortOrder: 'asc' | 'desc' | undefined) => {
+        setFilters((prev) => ({ ...prev, sortBy, sortOrder, page: 1 }));
+    };
+
     const resetFilters = () => {
         setFilters({
             page: 1,
             limit: 10,
             search: '',
             categories: [],
+            sortBy: undefined,
+            sortOrder: undefined,
         });
     };
 
@@ -34,6 +42,7 @@ export const useProductFilters = () => {
         setSearch,
         setPage,
         setCategories,
+        setSorting,
         resetFilters,
     };
 };

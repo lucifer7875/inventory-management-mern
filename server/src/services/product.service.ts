@@ -7,7 +7,9 @@ class ProductService {
         page: number,
         limit: number,
         search: string,
-        categoryIds: string[]
+        categoryIds: string[],
+        sortBy: string = 'createdAt',
+        sortOrder: string = 'desc'
     ) {
         const query: any = {};
 
@@ -19,13 +21,21 @@ class ProductService {
             query.categories = { $in: categoryIds };
         }
 
+        // Validate sortBy field (whitelist)
+        const allowedSortFields = ['name', 'quantity', 'createdAt'];
+        const validSortBy = allowedSortFields.includes(sortBy) ? sortBy : 'createdAt';
+
+        // Build sort object
+        const sortDirection = sortOrder === 'asc' ? 1 : -1;
+        const sortObject: any = { [validSortBy]: sortDirection };
+
         const totalItems = await Product.countDocuments(query);
         const totalPages = Math.ceil(totalItems / limit);
         const skip = (page - 1) * limit;
 
         const products = await Product.find(query)
             .populate('categories', 'id name') // Mongoose uses _id, but we'll map if needed
-            .sort({ createdAt: -1 })
+            .sort(sortObject)
             .skip(skip)
             .limit(limit);
 
